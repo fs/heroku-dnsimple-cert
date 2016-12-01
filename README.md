@@ -1,12 +1,7 @@
-# Letsencrypt DNSimple Heroku
+# Upload Certificate from DNSimple to Heroku
 
-**WIP WIP WIP**
-
-We could setup on Heroku and renew SSL certificates issued by Letsencrypt using DNSimple via API.
+We could setup on Heroku and renew SSL certificates issued by DNSimple via API.
 But you need to prepare certificate on DNSimple for specific domain and update CNAME for that custom domain for the first time.
-
-*
-* https://devcenter.heroku.com/articles/ssl#change-your-dns-for-all-domains-on-your-app
 
 ## What it does
 

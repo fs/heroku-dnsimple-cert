@@ -9,7 +9,7 @@ require "byebug"
 
 Dotenv.load
 
-module LetsencryptDnsimpleHeroku
+module HerokuDnsimpleCert
   def self.create_or_update_cert
     heroku_certificate.create_or_update
   end

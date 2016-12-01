@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/jalada/platform-api.git
+  revision: 45ddb3c1a7e2c7f85d979c0791db18e99affb237
+  specs:
+    platform-api (0.8.0)
+      heroics (~> 0.0.17)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -5,7 +12,25 @@ GEM
     bundler-audit (0.5.0)
       bundler (~> 1.2)
       thor (~> 0.18)
+    byebug (9.0.6)
     diff-lcs (1.2.5)
+    dnsimple (4.0.0)
+      httparty
+    dotenv (2.1.1)
+    erubis (2.7.0)
+    excon (0.54.0)
+    heroics (0.0.17)
+      erubis (~> 2.0)
+      excon
+      moneta
+      multi_json (>= 1.9.2)
+      netrc
+    httparty (0.14.0)
+      multi_xml (>= 0.5.2)
+    moneta (0.8.0)
+    multi_json (1.12.1)
+    multi_xml (0.5.5)
+    netrc (0.11.0)
     parser (2.3.1.2)
       ast (~> 2.2)
     powerpack (0.1.1)
@@ -40,6 +65,10 @@ PLATFORMS
 
 DEPENDENCIES
   bundler-audit
+  byebug
+  dnsimple
+  dotenv
+  platform-api!
   rspec
   rubocop
   rubocop-rspec
@@ -48,4 +77,4 @@ RUBY VERSION
    ruby 2.3.1p112
 
 BUNDLED WITH
-   1.12.5
+   1.13.6

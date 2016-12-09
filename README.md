@@ -38,7 +38,7 @@ HEROKU_APP=
 
 When certificate will be issued on DNSimple you need to run script to setup it to the Heroku application:
 ```bash
-bin/rake letsencrypt:update
+ruby -I lib ./exe/heroku-dnsimple-cert update
 ```
 
 At this point, you can verify that your application is serving your certificate by running:

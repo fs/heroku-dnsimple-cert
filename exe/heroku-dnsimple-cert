@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+
+require "heroku_dnsimple_cert"
+HerokuDnsimpleCert::CLI.start

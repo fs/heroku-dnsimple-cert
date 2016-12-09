@@ -1,10 +1,9 @@
 source "https://rubygems.org"
 
-ruby "2.3.1"
-
+gem "dnsimple"
 gem "dotenv"
 gem "platform-api", git: "https://github.com/jalada/platform-api.git"
-gem "dnsimple"
+gem "thor"
 
 group :development do
   gem "bundler-audit", require: false
@@ -12,4 +11,5 @@ group :development do
   gem "rspec"
   gem "rubocop"
   gem "rubocop-rspec", require: false
+  gem "webmock"
 end

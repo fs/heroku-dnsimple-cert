@@ -1,20 +1,20 @@
 require "rubygems"
 require "bundler/setup"
 require "dotenv"
-
-require "dnsimple_certificate"
-require "heroku_certificate"
-
 require "byebug"
+
+require "heroku_dnsimple_cert/cli"
+require "heroku_dnsimple_cert/dnsimple_certificate"
+require "heroku_dnsimple_cert/heroku_certificate"
 
 Dotenv.load
 
 module HerokuDnsimpleCert
-  def self.create_or_update_cert
+  def self.create_or_update
     heroku_certificate.create_or_update
   end
 
-  def dnsimple_certificate
+  def self.dnsimple_certificate
     @dnsimple_certificate ||= DnsimpleCertificate.new(
       token: ENV.fetch("DNSIMPLE_TOKEN"),
       account_id: ENV.fetch("DNSIMPLE_ACCOUNT_ID"),
@@ -23,12 +23,12 @@ module HerokuDnsimpleCert
     )
   end
 
-  def heroku_certificate
+  def self.heroku_certificate
     @heroku_certificate ||= HerokuCertificate.new(
       token: ENV.fetch("HEROKU_TOKEN"),
       app: ENV.fetch("HEROKU_APP"),
       certificate_chain: dnsimple_certificate.certificate_chain,
-      private_key: dnsimple_certificate.private_key,
+      private_key: dnsimple_certificate.private_key
     )
   end
 end

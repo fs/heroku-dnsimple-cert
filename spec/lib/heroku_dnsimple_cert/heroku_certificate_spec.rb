@@ -21,7 +21,7 @@ describe HerokuDnsimpleCert::HerokuCertificate do
     allow(client).to receive(:sni_endpoint) { sni_endpoint }
   end
 
-  context "when there is no certificate" do
+  describe "#create" do
     before do
       allow(sni_endpoint).to receive(:list) { [] }
     end
@@ -30,22 +30,22 @@ describe HerokuDnsimpleCert::HerokuCertificate do
       expect(sni_endpoint).to receive(:create)
         .with(app, certificate_chain: certificate_chain, private_key: private_key)
 
-      certificate.create_or_update
+      certificate.create
     end
   end
 
-  context "when there is existing certificate" do
+  describe "#create" do
     let(:certificate_name) { "maiasaura-93199" }
 
     before do
       allow(sni_endpoint).to receive(:list) { [{ "name" => certificate_name }] }
     end
 
-    it "updates new certificate" do
+    it "updates certificate" do
       expect(sni_endpoint).to receive(:update)
         .with(app, certificate_name, certificate_chain: certificate_chain, private_key: private_key)
 
-      certificate.create_or_update
+      certificate.update
     end
   end
 end

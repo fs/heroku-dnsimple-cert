@@ -1,6 +1,3 @@
-require "webmock/rspec"
-WebMock.disable_net_connect!
-
 require "heroku_dnsimple_cert"
 
 RSpec.configure do |config|

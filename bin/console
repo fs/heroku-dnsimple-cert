@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+require "heroku_dnsimple_cert"
+
+require "irb"
+IRB.start

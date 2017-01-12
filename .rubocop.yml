@@ -4,6 +4,7 @@ AllCops:
   DisplayCopNames: true
   Exclude:
     - bin/**/*
+    - vendor/**/*
 
 Rails:
   Enabled: false

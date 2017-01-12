@@ -32,6 +32,7 @@ Configure environment variables in `.env` or whatever you use:
 DNSIMPLE_TOKEN=
 DNSIMPLE_ACCOUNT_ID=
 DNSIMPLE_DOMAIN=
+DNSIMPLE_COMMON_NAME=
 HEROKU_TOKEN=
 HEROKU_APP=
 ```

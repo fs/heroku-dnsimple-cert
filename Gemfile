@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 gem "dnsimple"
 gem "dotenv"
-gem "platform-api", git: "https://github.com/jalada/platform-api.git"
+gem "httparty"
 gem "thor"
 
 group :development do

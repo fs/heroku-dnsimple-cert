@@ -1,8 +1,7 @@
 require "spec_helper"
 
 describe HerokuDnsimpleCert::HerokuCertificate do
-  let(:sni_endpoint) { instance_double(PlatformAPI::SniEndpoint) }
-  let(:client) { instance_double(PlatformAPI::Client) }
+  let(:client) { instance_double(HerokuSni) }
 
   let(:app) { "heroku-app" }
   let(:token) { "token" }
@@ -17,18 +16,14 @@ describe HerokuDnsimpleCert::HerokuCertificate do
     )
   end
 
-  before do
-    allow(client).to receive(:sni_endpoint) { sni_endpoint }
-  end
-
   describe "#create" do
     before do
-      allow(sni_endpoint).to receive(:list) { [] }
+      allow(client).to receive(:list) { [] }
     end
 
     it "creates new certificate" do
-      expect(sni_endpoint).to receive(:create)
-        .with(app, certificate_chain: certificate_chain, private_key: private_key)
+      expect(client).to receive(:create)
+        .with(certificate_chain: certificate_chain, private_key: private_key)
 
       certificate.create
     end
@@ -38,12 +33,12 @@ describe HerokuDnsimpleCert::HerokuCertificate do
     let(:certificate_name) { "maiasaura-93199" }
 
     before do
-      allow(sni_endpoint).to receive(:list) { [{ "name" => certificate_name }] }
+      allow(client).to receive(:list) { [{ "name" => certificate_name }] }
     end
 
     it "updates certificate" do
-      expect(sni_endpoint).to receive(:update)
-        .with(app, certificate_name, certificate_chain: certificate_chain, private_key: private_key)
+      expect(client).to receive(:update)
+        .with(certificate_name, certificate_chain: certificate_chain, private_key: private_key)
 
       certificate.update
     end

@@ -35,9 +35,9 @@ module HerokuDnsimpleCert
       end
 
       say "Done!", :green
-    rescue Excon::Error::UnprocessableEntity => e
-      say "Error adding certificate.", :red
-      say "Response: #{e.response.body}", :red
+    rescue => e
+      say "Error adding certificate ...", :red
+      say "   Response: #{e}", :red
 
       abort
     end

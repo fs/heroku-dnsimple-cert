@@ -1,12 +1,11 @@
 # Upload Certificate from DNSimple to Heroku
 
-We could setup on Heroku and renew SSL certificates issued by DNSimple via API.
-But you need to prepare certificate on DNSimple for specific domain and update CNAME for that custom domain for the first time.
+This gem provides `heroku-dnsimple-cert` executable script to upload SSL certificate from DNSimple to Heroku application.
 
 ## What it does
 
-* Fetchs certificate from DNSimple via API
-* Adds or updates certificate on Heroku via API
+* Fetch certificate from DNSimple via API
+* Add or update certificate on Heroku via API
 
 ## How to prepare
 
@@ -27,7 +26,21 @@ https://support.dnsimple.com/articles/api-access-token/
 
 ## Installation
 
-Configure environment variables in `.env` or whatever you use:
+When certificate will be issued on DNSimple you need to run script to setup it to the Heroku application:
+
+```bash
+heroku-dnsimple-cert update \
+  --dnsimple-account-id=DNSIMPLE_ACCOUNT_ID \
+  --dnsimple-common-name=DNSIMPLE_COMMON_NAME \
+  --dnsimple-domain=DNSIMPLE_DOMAIN \
+  --dnsimple-token=DNSIMPLE_TOKEN \
+  --heroku-app=HEROKU_APP \
+  --heroku-token=HEROKU_TOKEN
+```
+
+You can configure these environment variables in `.env` or whatever you use,
+so that `heroku-dnsimple-cert` will use them by default:
+
 ```bash
 DNSIMPLE_TOKEN=
 DNSIMPLE_ACCOUNT_ID=
@@ -37,11 +50,6 @@ HEROKU_TOKEN=
 HEROKU_APP=
 ```
 
-When certificate will be issued on DNSimple you need to run script to setup it to the Heroku application:
-```bash
-ruby -I lib ./exe/heroku-dnsimple-cert update
-```
-
 At this point, you can verify that your application is serving your certificate by running:
 
 ```bash
@@ -49,7 +57,7 @@ openssl s_client -connect <dns target>:443 -servername <your domain>
 # e.g. openssl s_client -connect www.example.com.herokudns.com:443 -servername www.example.com
 ```
 
-To enable certificate renew install rake task using Heroku daily scheduler.
+To enable certificate renew install script using Heroku Daily Scheduler.
 
 ## Develop
 

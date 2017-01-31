@@ -1,3 +1,4 @@
+require "bundler/setup"
 require "dotenv"
 
 require "heroku_dnsimple_cert/version"

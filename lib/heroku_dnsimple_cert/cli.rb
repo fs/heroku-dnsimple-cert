@@ -1,4 +1,6 @@
 require "thor"
+require "tty/spinner"
+require "pastel"
 
 Dotenv.load
 
@@ -17,29 +19,27 @@ module HerokuDnsimpleCert
     # rubocop:disable Metrics/AbcSize
     # rubocop:disable Metrics/MethodLength
     def update
-      say "Fetching certificate chain from DNSimple for #{options['dnsimple_common_name']} ...", :green
-      dnsimple_certificate.certificate_chain
-
-      say "Fetching private key from DNSimple for #{options['dnsimple_common_name']}. ..", :green
-      dnsimple_certificate.private_key
-
-      say "Fetching certificates from Heroku app #{options['heroku_app']} ...", :green
-      heroku_certificate.certificates
-
-      if heroku_certificate.certificates.any?
-        say "Updating existing certificate on Heroku app #{options['heroku_app']} ...", :green
-        heroku_certificate.update
-      else
-        say "Adding new certificate on Heroku app #{options['heroku_app']} ...", :green
-        heroku_certificate.create
+      task "Fetching certificate chain from DNSimple for #{options['dnsimple_common_name']}" do
+        dnsimple_certificate.certificate_chain
       end
 
-      say "Done!", :green
-    rescue => e
-      say "Error adding certificate ...", :red
-      say "   Response: #{e}", :red
+      task "Fetching private key from DNSimple for #{options['dnsimple_common_name']}" do
+        dnsimple_certificate.private_key
+      end
 
-      abort
+      task "Fetching certificates from Heroku app #{options['heroku_app']}" do
+        heroku_certificate.certificates
+      end
+
+      if heroku_certificate.certificates.any?
+        task "Updating existing certificate on Heroku app #{options['heroku_app']}" do
+          heroku_certificate.update
+        end
+      else
+        task "Adding new certificate on Heroku app #{options['heroku_app']}" do
+          heroku_certificate.create
+        end
+      end
     end
 
     private
@@ -62,9 +62,26 @@ module HerokuDnsimpleCert
       )
     end
 
-    def say(message = "", color = nil)
-      color = nil unless $stdout.tty?
-      super(message.to_s, color)
+    def task(name)
+      spinner.update name: name
+      spinner.auto_spin
+      spinner.start
+      yield
+      spinner.success(pastel.green("OK"))
+    rescue => e
+      spinner.error(pastel.red(e.to_s))
+    end
+
+    def pastel
+      @pastel ||= Pastel.new
+    end
+
+    def spinner
+      @spinner ||= TTY::Spinner.new(
+        %Q{[#{pastel.yellow(":spinner")}] :name ...},
+        success_mark: pastel.green(TTY::Spinner::TICK),
+        error_mark: pastel.red(TTY::Spinner::CROSS)
+      )
     end
   end
 end

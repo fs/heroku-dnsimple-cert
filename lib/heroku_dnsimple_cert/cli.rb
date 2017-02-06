@@ -78,7 +78,7 @@ module HerokuDnsimpleCert
 
     def spinner
       @spinner ||= TTY::Spinner.new(
-        %Q{[#{pastel.yellow(":spinner")}] :name ...},
+        %([#{pastel.yellow(':spinner')}] :name ...),
         success_mark: pastel.green(TTY::Spinner::TICK),
         error_mark: pastel.red(TTY::Spinner::CROSS)
       )

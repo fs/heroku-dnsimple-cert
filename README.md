@@ -57,7 +57,13 @@ openssl s_client -connect <dns target>:443 -servername <your domain>
 # e.g. openssl s_client -connect www.example.com.herokudns.com:443 -servername www.example.com
 ```
 
-To enable certificate renew install script using Heroku Daily Scheduler.
+## Auto-renewal
+
+To enable certificate renew for Rails applications:
+
+* Add gem "heroku_dnsimple_cert" into Gemfile
+* Setup required env variables on Heroku
+* Add *Daily Job* to Heroku Scheduler: if [ "$(date +%d)" = 01 ]; then bin/rake heroku_dnsimple_cert:update; fi
 
 ## Develop
 

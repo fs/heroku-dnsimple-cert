@@ -2,6 +2,10 @@
 
 This gem provides `heroku-dnsimple-cert` executable script to upload SSL certificate from DNSimple to Heroku application.
 
+## Heroku do the same thing NOW
+
+[Automated Certificate Management](https://devcenter.heroku.com/articles/automated-certificate-management) is enabled by default for all applications created after March 21, 2017 that are running on Hobby or Professional dynos.
+
 ## What it does
 
 * Fetch certificate from DNSimple via API
